@@ -6,6 +6,8 @@ __date__ = "Jan 8, 2020"
 __version__ = "0.0.1"
 __status__ = "Prototype"
 
+# Use this code to generate data for encoder calibration
+
 import time
 import os
 import numpy
@@ -27,6 +29,18 @@ spi.open(bus, device)
 spi.max_speed_hz = 2000
 spi.mode = 0
 
-angle = readbytes(2)
-
+read = spi.readbytes(2)
+high_byte = read[0]<<8
+low_byte = (read[1]>>4)<<4 # Get rid of last 4 bit whatever
+angle = high_byte+low_byte
 print(angle)
+
+#bi_angle = bin(angle[0])<<8
+#print(bi_angle)
+#bi_angle = [bin(angle[0])]
+#bangle.append(bin(angle[1]))
+#print(angle)
+#print(bangle)
+#time.sleep(0.001)
+
+
