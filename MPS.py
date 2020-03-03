@@ -6,43 +6,48 @@ __date__ = "Jan 8, 2020"
 __version__ = "0.0.1"
 __status__ = "Prototype"
 
-#Encoder and functions
+# Encoder and functions
 
 import time
 import os
 import numpy
 import spidev
 
-class MPS_Encoder(object)
-
-
-# We only have SPI bus 0 available to us on the Pi
-bus = 0
-
-#Device is the chip select pin. Set to 0 or 1, depending on the connections
-device = 0
-
 # Enable SPI
 spi = spidev.SpiDev()
 
-# Open a connection to a specific bus and device (chip select pin)
-spi.open(bus, device)
 
-# Set SPI speed and mode
-spi.max_speed_hz = 2000
-spi.mode = 0
+class MPS_Encoder(object):
 
-read = spi.readbytes(2)
-high_byte = read[0]<<8
-low_byte = (read[1]>>4)<<4 # Get rid of last 4 bit whatever
-angle = high_byte+low_byte
-print(angle)
+    def __init__(self, name, chip_bus, cs, max_speed, mode):
+        self.name = name
+        self.chip_bus = chip_bus
+        self.cs = cs
+        self.max_speed = max_speed
+        self.mode = mode
 
-#bi_angle = bin(angle[0])<<8
-#print(bi_angle)
-#bi_angle = [bin(angle[0])]
-#bangle.append(bin(angle[1]))
-#print(angle)
-#print(bangle)
-#time.sleep(0.001)
+    def connect(self):
+        # Open a connection to a specific bus and device (chip select pin)
+        spi.open(self.chip_bus, self.cs)
 
+        # Set SPI speed and mode
+        spi.max_speed_hz = self.max_speed
+        spi.mode = self.mode
+
+    @staticmethod
+    def read_angle(self):
+        # Read angle from device
+        data = spi.readbytes(2)
+        high_byte = data[0] << 8
+        low_byte = (data[1] >> 4) << 4  # Get rid of last 4 bit whatever
+        angle = high_byte + low_byte
+        return angle
+
+
+# bi_angle = bin(angle[0])<<8
+# print(bi_angle)
+# bi_angle = [bin(angle[0])]
+# bangle.append(bin(angle[1]))
+# print(angle)
+# print(bangle)
+# time.sleep(0.001)
