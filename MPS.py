@@ -32,7 +32,7 @@ class MPS_Encoder(object):
         # Set SPI speed and mode
         spi.max_speed_hz = self.max_speed
         spi.mode = self.mode
-        print("Chip connected.")
+        print("Device connected.")
 
     
     def read_angle(self):
@@ -43,6 +43,10 @@ class MPS_Encoder(object):
         angle = high_byte + low_byte
         return angle
 
+    def release(self):
+        # Disconnect the device
+        spi.close()
+        print("Device released.")
 
 # bi_angle = bin(angle[0])<<8
 # print(bi_angle)
