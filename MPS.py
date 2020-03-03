@@ -29,12 +29,12 @@ class MPS_Encoder(object):
     def connect(self):
         # Open a connection to a specific bus and device (chip select pin)
         spi.open(self.chip_bus, self.cs)
-
         # Set SPI speed and mode
         spi.max_speed_hz = self.max_speed
         spi.mode = self.mode
+        print("Chip connected.")
 
-    @staticmethod
+    
     def read_angle(self):
         # Read angle from device
         data = spi.readbytes(2)
