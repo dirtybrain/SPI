@@ -24,20 +24,17 @@ spi = spidev.SpiDev()
 spi.open(bus, device)
 
 # Set SPI speed and mode
-spi.max_speed_hz = 2000
+spi.max_speed_hz = 1000000
 spi.mode = 0
 
 read = spi.readbytes(2)
-high_byte = read[0]<<8
-low_byte = (read[1]>>4)<<4 # Get rid of last 4 bit whatever
-angle = high_byte+low_byte
-print(angle)
 
-#bi_angle = bin(angle[0])<<8
-#print(bi_angle)
-#bi_angle = [bin(angle[0])]
-#bangle.append(bin(angle[1]))
-#print(angle)
-#print(bangle)
+
+
+print(read)
+bi_angle = [bin(read[0])]
+bi_angle.append(bin(read[1]))
+
+print(bi_angle)
 #time.sleep(0.001)
 

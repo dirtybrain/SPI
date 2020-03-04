@@ -47,7 +47,7 @@ class MotorController(object):
         elif mode == 'torque':
             m = 0
         elif mode == 'force':
-            m = 4
+            m = 3
 
         self.pbm.set_mode((m_id, m))
 

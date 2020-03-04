@@ -62,13 +62,14 @@ def BEAR_Initialization(m_id):
 
     # Set PID Gains
     # Velocity
-    MC.pbm.set_p_gain_velocity((m_id, 0.2))
+    MC.pbm.set_p_gain_velocity((m_id, 0.1))
     MC.pbm.set_i_gain_velocity((m_id, 0.0005))
     # Position
-    MC.pbm.set_p_gain_position((m_id, 0.15))
+    MC.pbm.set_p_gain_position((m_id, 0.003))
+    MC.pbm.set_d_gain_position((m_id, 0.001))
 
     # Set mode
-    MC.pbm.set_mode(m_id, 'position')
+    MC.set_mode(m_id, 'position')
 
     # 4. Save
     MC.pbm.save_config(m_id)
@@ -83,14 +84,17 @@ def record(m_id, n):
     # 2. Generate trajectory
     # Only need step length here
     step = 262144 // n
-    start = -131072 - step // 2
+    start = -131072 + step // 2
 
     # 3. Move and read
     MC.torque_enable(m_id, 1)
     # Move motor from min_Pos-step/2 and record
     # BEAR range: -131072 ~ 131071
+    MC.pbm.set_goal_position((m_id, 0))
+    time.sleep(1)
     MC.pbm.set_goal_position((m_id, start))
-    time.sleep(1.5)
+    time.sleep(2)
+    print("BEAR at start pos.")
     # Initialize position lists
     BEAR_Pos = [0] * n
     Encoder_Pos = [0] * n
@@ -99,29 +103,35 @@ def record(m_id, n):
         try:
             MC.pbm.set_goal_position((m_id, start + x * step))
             time.sleep(0.5)
-            BEAR_Pos[n - 1] = MC.pbm.get_present_position(m_id)[0]
-            Encoder_Pos[n - 1] = MA310.read_angle()
+            BEAR_Pos[x] = MC.pbm.get_present_position(m_id)[0]
+            Encoder_Pos[x] = MA310.read_angle()
+            print(x)
 
         except KeyboardInterrupt:
             check = True
             print("User interrupted.")
 
     # 4. Release the device
+    MC.torque_enable(m_id, 0)
     MA310.release()
+    
+    #print(BEAR_Pos,'\n',Encoder_Pos)
 
     # 5. Write data into file
     # Write file
-    filename = '/calibration_record.txt'
+    filename = 'calibration_record.txt'
+    print(os.getcwd())
     filepath = os.path.join(os.getcwd(), filename)
+    print(filepath)
     records = open(filepath, 'w')
     for x in range(n):
-        records.write('%d,%d\n' % BEAR_Pos[x], Encoder_Pos[x])
+        records.write('%d,%d\n' % (BEAR_Pos[x], Encoder_Pos[x]))
     records.close()
     print('Record written to file.')
 
 
 if __name__ == '__main__':
     motor_id = 1
-    step_count = 10
+    step_count = 360
     BEAR_Initialization(motor_id)
     record(motor_id, step_count)
