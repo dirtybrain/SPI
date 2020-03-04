@@ -82,8 +82,8 @@ def record(m_id, n):
     MA310.connect()
     # 2. Generate trajectory
     # Only need step length here
-    step = 262144//n
-    start = -131072-step//2
+    step = 262144 // n
+    start = -131072 - step // 2
 
     # 3. Move and read
     MC.torque_enable(m_id, 1)
@@ -91,29 +91,37 @@ def record(m_id, n):
     # BEAR range: -131072 ~ 131071
     MC.pbm.set_goal_position((m_id, start))
     time.sleep(1.5)
+    # Initialize position lists
+    BEAR_Pos = [0] * n
+    Encoder_Pos = [0] * n
+
     for x in range(n):
         try:
-            MC.pbm.set_goal_position((m_id, start+x*step))
+            MC.pbm.set_goal_position((m_id, start + x * step))
             time.sleep(0.5)
+            BEAR_Pos[n - 1] = MC.pbm.get_present_position(m_id)[0]
+            Encoder_Pos[n - 1] = MA310.read_angle()
 
         except KeyboardInterrupt:
             check = True
             print("User interrupted.")
 
-
     # 4. Release the device
     MA310.release()
 
     # 5. Write data into file
+    # Write file
+    filename = '/calibration_record.txt'
+    filepath = os.path.join(os.getcwd(), filename)
+    records = open(filepath, 'w')
+    for x in range(n):
+        records.write('%d,%d\n' % BEAR_Pos[x], Encoder_Pos[x])
+    records.close()
+    print('Record written to file.')
 
 
-angle = MA310.read_angle()
-print(angle)
-
-# bi_angle = bin(angle[0])<<8
-# print(bi_angle)
-# bi_angle = [bin(angle[0])]
-# bangle.append(bin(angle[1]))
-# print(angle)
-# print(bangle)
-# time.sleep(0.001)
+if __name__ == '__main__':
+    motor_id = 1
+    step_count = 10
+    BEAR_Initialization(motor_id)
+    record(motor_id, step_count)
