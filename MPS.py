@@ -12,9 +12,16 @@ import time
 import os
 import numpy
 import spidev
+from MPS_REG_TABLE import *
 
 # Enable SPI
 spi = spidev.SpiDev()
+
+
+def release():
+    # Disconnect the device
+    spi.close()
+    print("Device released.")
 
 
 class MPS_Encoder(object):
@@ -34,24 +41,27 @@ class MPS_Encoder(object):
         spi.mode = self.mode
         print("Device connected.")
 
-    
+
     def read_angle(self):
         # Read angle from device
         data = spi.readbytes(2)
         high_byte = data[0] << 8
-        low_byte = (data[1] >> 4) << 4  # Get rid of last 4 bit whatever
-        angle = high_byte + low_byte
+        low_byte = data[1]
+        angle = (high_byte + low_byte) >> 4 # Get rid of last 4 bit whatever
         return angle
 
-    def release(self):
-        # Disconnect the device
-        spi.close()
-        print("Device released.")
+    def read_BCT(self):
+        # Read the BCT register value
+        send = 0b01000010
+        spi.writebytes([send, 0])
+        data = spi.readbytes(2)
+        BTC = data[0]
+        return BTC
 
-# bi_angle = bin(angle[0])<<8
-# print(bi_angle)
-# bi_angle = [bin(angle[0])]
-# bangle.append(bin(angle[1]))
-# print(angle)
-# print(bangle)
-# time.sleep(0.001)
+    def write_BTC(self, ):
+
+    #def read_reg(self,*argv):
+
+
+    #def write_reg(self,*argv):
+

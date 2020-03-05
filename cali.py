@@ -113,7 +113,7 @@ def record(m_id, n):
 
     # 4. Release the device
     MC.torque_enable(m_id, 0)
-    MA310.release()
+    release()
     
     #print(BEAR_Pos,'\n',Encoder_Pos)
 
