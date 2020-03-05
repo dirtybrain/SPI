@@ -22,7 +22,7 @@ device = 0
 max_speed_hz = 2000
 spi_mode = 0
 bear_baudrate = 8000000
-bear_port = "/dev/ttyUSB0"
+bear_port = "/dev/ttyUSB1"
 
 MA310 = MPS_Encoder("MA310", bus, device, max_speed_hz, spi_mode)
 MC = MotorController(bear_baudrate, bear_port)
@@ -98,7 +98,7 @@ def record(m_id, n):
     # Initialize position lists
     BEAR_Pos = [0] * n
     Encoder_Pos = [0] * n
-
+    
     for x in range(n):
         try:
             MC.pbm.set_goal_position((m_id, start + x * step))

@@ -65,7 +65,7 @@ class MPS_Encoder(object):
         else:
             return False
 
-    def release():
+    def release(self):
         # Disconnect the device
         spi.close()
         print("Device released.")
