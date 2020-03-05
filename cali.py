@@ -113,9 +113,9 @@ def record(m_id, n):
 
     # 4. Release the device
     MC.torque_enable(m_id, 0)
-    release()
-    
-    #print(BEAR_Pos,'\n',Encoder_Pos)
+    MA310.release()
+
+    # print(BEAR_Pos,'\n',Encoder_Pos)
 
     # 5. Write data into file
     # Write file
@@ -130,8 +130,38 @@ def record(m_id, n):
     print('Record written to file.')
 
 
+def write_BTC(BTC):
+    MA310.connect()
+    check = MA310.write_BTC(BTC)
+    if check:
+        print("BTC updated.")
+    else:
+        print("Failed to update BTC.")
+    MA310.release()
+    return check
+
+def read_BTC():
+    MA310.connect()
+    BTC = MA310.read_BCT()
+    MA310.release()
+    return BTC
+
+
 if __name__ == '__main__':
     motor_id = 1
     step_count = 360
+    user = input("Is this a BTC test?(y/n)")
+    if user == 'n':
+        BTC_inchip = read_BTC()
+        if BTC_inchip != 0:
+            write_BTC(0)
+    else:
+        BTC = int(round(float(input("Please input BTC:\n"))))
+        BTC_inchip = read_BTC()
+        if BTC != BTC_inchip:
+            write_BTC(BTC)
+
     BEAR_Initialization(motor_id)
     record(motor_id, step_count)
+
+

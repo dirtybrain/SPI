@@ -18,12 +18,6 @@ from MPS_REG_TABLE import *
 spi = spidev.SpiDev()
 
 
-def release():
-    # Disconnect the device
-    spi.close()
-    print("Device released.")
-
-
 class MPS_Encoder(object):
 
     def __init__(self, name, chip_bus, cs, max_speed, mode):
@@ -58,7 +52,24 @@ class MPS_Encoder(object):
         BTC = data[0]
         return BTC
 
-    def write_BTC(self, ):
+    def write_BTC(self, BTC):
+        # Write the BCT register value
+        # BTC value
+        send = 0b10000010
+        spi.writebytes([send, BTC])
+        time.sleep(0.02)
+        data = spi.readbytes(2)
+        high_byte = data[0]
+        if high_byte == BTC:
+            return True
+        else:
+            return False
+
+    def release():
+        # Disconnect the device
+        spi.close()
+        print("Device released.")
+
 
     #def read_reg(self,*argv):
 
