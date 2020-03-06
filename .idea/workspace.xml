@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab7ce991-3c95-4122-8d9a-b3fd272b5052" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/MPS_REG_TABLE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SPI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SPI.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MPS_CONTROL_TABLE.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_collect.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MPS.py" beforeDir="false" afterPath="$PROJECT_DIR$/MPS.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MPS_REG_TABLE.py" beforeDir="false" afterPath="$PROJECT_DIR$/sensor_orientation_update.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cali.py" beforeDir="false" afterPath="$PROJECT_DIR$/cali.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +30,13 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../PyBEAR" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -43,19 +49,41 @@
       <option name="presentableId" value="Default" />
       <updated>1583370138722</updated>
     </task>
+    <task id="LOCAL-00001" summary="--">
+      <created>1583392784970</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583392784970</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="--" />
+    <option name="LAST_COMMIT_MESSAGE" value="--" />
   </component>
   <component name="WindowStateProjectService">
     <state x="647" y="357" width="683" height="391" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1583372328253">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="647" y="357" width="683" height="391" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1583372328253" />
+    <state x="588" y="93" width="801" height="918" key="CommitChangelistDialog2" timestamp="1583392784790">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="588" y="93" width="801" height="918" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1583392784790" />
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1583460262169">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1583460262169" />
     <state x="475" y="187" key="SettingsEditor" timestamp="1583370189354">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="475" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583370189354" />
+    <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1583392787234">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2/67.27.1853.1053@67.27.1853.1053" timestamp="1583392787234" />
   </component>
 </project>

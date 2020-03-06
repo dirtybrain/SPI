@@ -11,6 +11,17 @@ Register Table
 """
 
 
-class MPS_REG:
+class INSTRUCTION:
+    """MPS Instruction"""
+    read = 0b01000000
+    write = 0b10000000
+
+
+class REG:
     """MPS Registers"""
     BCT = 0x02
+    Sensor_Orientation = 0x03
+
+
+REG_DIC = {'BTC': REG.BCT,
+           'sensor_orientation': REG.Sensor_Orientation}
