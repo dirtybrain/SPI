@@ -18,7 +18,7 @@ device = 0
 max_speed_hz = 2000
 spi_mode = 0
 bear_baudrate = 8000000
-bear_port = "/dev/ttyUSB1"
+bear_port = "/dev/ttyUSB0"
 
 
 class cali(object):

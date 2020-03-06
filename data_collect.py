@@ -17,6 +17,7 @@ BTC_inchip = CF.MA310.read_reg('BTC')
 
 user = input("Is this a BTC test?(y/n)")
 if user == 'n':
+    BTC = 0
     if BTC_inchip != 0:
         check = CF.MA310.write_reg('BTC', 0)
         if check:
@@ -31,7 +32,9 @@ else:
             print("BTC updated!")
         else:
             print("BTC update failed.")
-filename = input("Please input a file name:\n")
+    else:
+        print("No need to update BTC.")
+filename = "BTC_"+str(BTC)+".csv"
 
 CF.BEAR_Initialization(motor_id)
 CF.record(motor_id, step_count, filename)
