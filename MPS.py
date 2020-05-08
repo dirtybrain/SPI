@@ -88,3 +88,41 @@ class MPS_Encoder(object):
             return True
         else:
             return False
+        
+    def home(self):
+        # Zero the sensor with current position
+        # Read current position:
+        data = spi.readbytes(2)
+        high_byte = data[0] << 8
+        low_byte = data[1]
+        angle = high_byte + low_byte  
+        a0 = 65536 - angle
+        a0_h = a0 >> 8
+        a0_l = a0 & 0b0000000011111111
+        
+        check = [0,0]
+        packet = INSTRUCTION.write + REG_DIC['zero_high']
+        spi.writebytes([packet, a0_h])
+        time.sleep(0.02)
+        data = spi.readbytes(2)
+        return_val = data[0]
+        if return_val == a0_h:
+            check[0] = 1
+        else:
+            print("High byte update failed.")
+        
+        packet = INSTRUCTION.write + REG_DIC['zero_low']
+        spi.writebytes([packet, a0_l])
+        time.sleep(0.02)
+        data = spi.readbytes(2)
+        return_val = data[0]
+        if return_val == a0_l:
+            check[1] = 1
+        else:
+            print("Low byte update failed.")
+        
+        if check[1] and check[0]:
+            print("Homed.")
+            return True
+        else:
+            return False

@@ -74,6 +74,24 @@ class cali(object):
 
         # 4. Save
         cali.MC.pbm.save_config(m_id)
+        
+    def MPS_Initialization(self, m_id):
+        # Connect encoder
+        cali.MA310.connect()
+        # Move BEAR to 0
+        cali.MC.torque_enable(m_id, 1)
+        cali.MC.pbm.set_goal_position((m_id, 0))
+        # Home MA310
+        check = cali.MA310.home()
+        # Release the devices
+        cali.MC.torque_enable(m_id, 0)
+        cali.MA310.release()
+        if check:
+            print("MPS homed with BEAR zero.")
+        else:
+            print("MPS initialization failed.")
+        return check
+            
 
     def record(self, m_id, data_count, filename):
         # Record n calibration data with BEAR ID = m_id
