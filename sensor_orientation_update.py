@@ -17,7 +17,7 @@ spi_mode = 0
 
 MA310 = MPS_Encoder("MA310", bus, device, max_speed_hz, spi_mode)
 MA310.connect()
-check = MA310.write_reg('sensor_orientation', 0b01)
+check = MA310.write_reg('sensor_orientation', 0b10)
 if check:
     print("Sensor orientation updated.")
 else:
