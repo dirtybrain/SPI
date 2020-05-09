@@ -37,6 +37,6 @@ else:
 filename = "BTC_"+str(BTC)+".csv"
 
 CF.BEAR_Initialization(motor_id)
-CF.MPS_Initialization(motor_id)
+# CF.MPS_Initialization(motor_id)
 CF.record(motor_id, step_count, filename)
 
